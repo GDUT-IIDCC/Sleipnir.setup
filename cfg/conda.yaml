@@ -1,0 +1,23 @@
+name: sleipnir
+channels:
+  - pytorch
+  - conda-forge
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - defaults
+dependencies:
+  - cudatoolkit=10.2.89
+  - cudnn=7.6.5
+  - numpy
+  - pillow
+  - pip
+  - pybind11
+  - pyqt
+  - pytorch=1.8.0
+  - pytorch=1.7.0
+  - pyyaml
+  - readline
+  - setuptools
+  - torchaudio=0.8.0
+  - torchvision=0.9.0
+  - tqdm
+prefix: /home/sleipnir/anaconda3/envs/sleipnir
