@@ -40,6 +40,8 @@ do
                 locales \
                 lsb-core \
                 nano \
+                net-tools \
+                openssh-server \
                 software-properties-common \
                 sudo \
                 vim \

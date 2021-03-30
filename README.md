@@ -5,7 +5,7 @@
 
 # 安装
 
-## 基础依赖环境（含ros）（待测试）
+## 基础依赖环境（含ros）
 
 ```bash
 $ sudo  bash ./build_basic_env.sh
@@ -13,7 +13,7 @@ $ sudo  bash ./build_basic_env.sh
 
 ## conda
 
-- 安装conda环境（默认环境名为`sleipnir`，环境路径为`/home/sleipnir/anaconda3/envs/sleipnir`，可视实际情况进行修正，默认配置为清华源）
+- 安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正，默认配置为清华源）
 
 ```bash
 $ source build_conda_env.sh
@@ -40,6 +40,22 @@ $ export PATH=${PATH}:"/usr/local/cuda/bin"
 ```bash
 $ cat ./alias.sh >> ~/.bashrc
 ```
+
+# 自动化脚本
+
+- 安装常用软件(v2ray, typora...) 
+
+```bash
+$ ./install_software.sh
+```
+
+- 利用脚本配置网络环境(需要根据实际情况，修改脚本中的参数)
+
+```bash
+$ ./set_ip.sh
+```
+
+
 
 # TODO
 
