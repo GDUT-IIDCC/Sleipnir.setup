@@ -1,5 +1,5 @@
 #! /bin/bash
-sudo gs_usb > /etc/modules
+sudo gs_usb >> /etc/modules
 sudo cp *.service /etc/systemd/system/
 sudo cp panel.desktop ~/Desktop
 chmod +x ~/Desktop/panel.desktop
