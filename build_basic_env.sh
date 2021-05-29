@@ -2,9 +2,9 @@
 
 # 安装基础的apt包
 while true; do
-    read -r -p "1. install basic apt package?  [y/n] " input
+    read -r -p "1. install basic apt package?  [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             sudo apt-get update
             sudo apt-get install -y \
                 apt-utils \
@@ -23,8 +23,8 @@ while true; do
                 openssh-server \
                 software-properties-common \
                 vim \
-                wget
-
+                wget \
+                gcc-9 g++-9 gcc-10 g++-10
             break
             ;;
 
@@ -40,9 +40,9 @@ done
 
 # 安装ROS
 while true; do
-    read -r -p "2. install ROS?  [y/n] " input
+    read -r -p "2. install ROS?  [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
             sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
             sudo apt-get update
@@ -69,9 +69,9 @@ done
 
 # 安装其他ros包依赖
 while true; do
-    read -r -p "3. install ros-noetic package?  [y/n] " input
+    read -r -p "3. install ros-noetic package?  [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             sudo apt-get update
             sudo apt-get install -y \
                 libboost-all-dev \
@@ -111,9 +111,9 @@ done
 
 # 安装其他apt包依赖
 while true; do
-    read -r -p "4. install apt advanced package?  [y/n] " input
+    read -r -p "4. install apt advanced package?  [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             sudo apt-get update
             #  依次为top的升级版、监控网速、网络限速
             sudo apt-get install -y \

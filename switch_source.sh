@@ -2,9 +2,9 @@
 
 # 修改源，包含apt, pip, conda
 while true; do
-    read -r -p "use gdut source or tsinghua source? [g/t] " input
+    read -r -p "use gdut source or tsinghua source? [G/t] " input
     case $input in
-        [gG])
+        [tT])
             # apt
             sudo cp cfg/mirrors/tsinghua/apt.cfg /etc/apt/sources.list
             # conda
@@ -16,15 +16,13 @@ while true; do
             break
             ;;
 
-        [tT])
+        [gG] | "")
             sudo cp cfg/mirrors/gdut/apt.cfg /etc/apt/sources.list
-
-            cp cfg/mirrors/gudt/conda.cfg ~/.condarc
-
+            cp cfg/mirrors/gdut/conda.cfg ~/.condarc
             pip config set global.index-url http://mirrors.gdut.edu.cn/pypi/simple
             pip config set install.trusted-host mirrors.gdut.edu.cn
-            break
             echo "switch gdut source successfully"
+            break            
             ;;
 
         *)

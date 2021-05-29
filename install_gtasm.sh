@@ -3,7 +3,7 @@ cd ~ && wget https://github.com/borglab/gtsam/archive/refs/tags/4.0.3.tar.gz -O 
 tar -xzvf gtsam.tar.gz
 cd gtsam-4.0.3 && mkdir build && cd build
 cmake ..
-make -j4
+make -j$(nproc)
 sudo make install
 # 删除安装包
 # cd ~ && rm -rf gtsam*

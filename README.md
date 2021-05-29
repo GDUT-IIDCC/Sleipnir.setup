@@ -39,15 +39,39 @@ $ source ./build_python_env.sh
 ### 安装第三方包
 
 ```bash
+# 于定位模块使用
 $ bash ./install_gtsam.sh
+# 于规划模块使用
+$ bash ./install_osqp.sh
 ```
 
 ### [安装cuda等常用程序](https://shimo.im/docs/drhDv3c6k3HHjHrg)
 
+1. 对应`TensorRT 7.2.3`, `cudnn8.1.1`, `cuda11.1`
+
+- 官网下载安装包，本部分只提供参考链接
+  - cuda11.1：wget -c https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
+  - [cudnn 8.1.1](https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/7.2.3/tars/TensorRT-7.2.3.4.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.1.tar.gz)
+  - [TensorRT 7.2.3](https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/7.2.3/tars/TensorRT-7.2.3.4.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.1.tar.gz)
+
+- [百度网盘](https://pan.baidu.com/s/1cYyQcMq-FCrw2jlaUvufRg) ，密码: pl5g
+
+2. 解压与安装（略，只对cudnn进行补充说明）
+
+``` bash
+$ sudo cp cuda/include/cudnn*.h /usr/local/cuda/include \
+&& sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64 \
+&& sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 ```
-# 添加环境变量（根据实际情况调节路径）
-$ export PATH=${PATH}:"/usr/local/cuda/bin" 
-&& export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"/usr/local/cuda/lib64":"${HOME}/application/TensorRT-7.0.0.11/lib"
+
+3. 添加环境变量到`~/.bashrc`（根据实际情况调节路径）
+
+```
+CUDA_PATH=/usr/local/cuda/bin
+CUDA_LIB_PATH=/usr/local/cuda/lib64
+TENSORRT_LIB_PATH=${HOME}/application/TensorRT-7.2.3.4/lib
+export PATH=${PATH}:${CUDA_PATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CUDA_LIB_PATH}:${TENSORRT_LIB_PATH}
 ```
 
 ## 其他（optional）
@@ -72,5 +96,7 @@ $ cat ./alias.sh >> ~/.bashrc
 
 
 
+# 日志
 
-
+1. 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
+2. 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明

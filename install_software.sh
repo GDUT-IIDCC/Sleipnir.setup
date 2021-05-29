@@ -2,9 +2,9 @@
 
 # [typora] from https://www.typora.io/#linux
 while true; do
-    read -r -p "1. install typora? [y/n] " input
+    read -r -p "1. install typora? [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
             sudo add-apt-repository 'deb https://typora.io/linux ./'
             sudo apt-get update
@@ -24,9 +24,9 @@ done
 
 # [v2rayA] from https://github.com/v2rayA/v2rayA/wiki/Usage
 while true; do
-    read -r -p "2. install v2rayA? [y/n] " input
+    read -r -p "2. install v2rayA? [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             # curl -O https://cdn.jsdelivr.net/gh/v2rayA/v2rayA@master/install/go.sh
             # install v2ray-core from jsdelivr
             sudo bash go.sh
@@ -37,6 +37,8 @@ while true; do
             sudo apt update
             # install V2RayA
             sudo apt install v2raya -y
+            sudo systemctl enable v2ray
+            sudo systemctl start v2ray
             break
             ;;
 
@@ -52,9 +54,9 @@ done
 
 # [flameshot] from https://github.com/flameshot-org/flameshot
 while true; do
-    read -r -p "2. install flameshot? [y/n] " input
+    read -r -p "2. install flameshot? [Y/n] " input
     case $input in
-        [yY][eE][sS] | [yY])
+        [yY][eE][sS] | [yY] | "")
             # 1. apt装：旧版本，无文字添加功能
             sudo apt install flameshot -y
 
