@@ -2,7 +2,7 @@
 
 - `conda虚拟环境` 适用于二维目标检测、UI等依赖python的包
 
-## 安装
+## 00-搭建基础环境
 
 ### 改源（optional）
 
@@ -12,9 +12,9 @@
 $ bash ./switch_source.sh
 ```
 
-### 搭建基础依赖环境（含ros）
+### 搭建基础系统环境（含ros）
 
-- ros的安装使用清华源
+ros的安装将使用清华源
 
 ```bash
 $ sudo bash ./build_basic_env.sh
@@ -23,12 +23,15 @@ $ sudo bash ./build_basic_env.sh
 ### conda
 
 - 安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正），需[先安装anaconda](https://shimo.im/docs/Jc6dvgDcthPwhTH6)
+
 - 改用`mamba`提升下载速度
 - 在成功的案例中，**全程使用科学上网+官方源（没用清华源或广工源进行配置）**
 
 ```bash
 $ source ./build_conda_env.sh
 ```
+
+**PS：强烈推荐直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[百度云]( https://pan.baidu.com/s/1BIoPp7Ud8a5XQb8rkiXuag)，密码: 4u6p，若使用此方法则可跳过下一步python依赖包的安装**
 
 ### python
 
@@ -38,7 +41,7 @@ $ source ./build_conda_env.sh
 $ source ./build_python_env.sh
 ```
 
-### 安装第三方包
+## 01-安装第三方包
 
 ```bash
 # 于定位模块使用
@@ -47,7 +50,7 @@ $ bash ./install_gtsam.sh
 $ bash ./install_osqp.sh
 ```
 
-### [安装cuda等常用程序](https://shimo.im/docs/drhDv3c6k3HHjHrg)
+## 02-[配置深度学习环境](https://shimo.im/docs/drhDv3c6k3HHjHrg)
 
 1. 对应`TensorRT 7.2.3`, `cudnn8.1.1`, `cuda11.1`
 
@@ -58,7 +61,7 @@ $ bash ./install_osqp.sh
 
 - [百度网盘](https://pan.baidu.com/s/1cYyQcMq-FCrw2jlaUvufRg) ，密码: pl5g
 
-2. 解压与安装（略，只对cudnn进行补充说明）
+2. 解压与安装（略，只对cudnn进行补充说明），**注意复制的目录**
 
 ``` bash
 $ sudo cp cuda/include/cudnn*.h /usr/local/cuda/include \
