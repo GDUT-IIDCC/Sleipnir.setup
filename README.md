@@ -22,7 +22,9 @@ $ sudo bash ./build_basic_env.sh
 
 ### conda
 
-安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正），需[先安装anaconda](https://shimo.im/docs/Jc6dvgDcthPwhTH6)
+- 安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正），需[先安装anaconda](https://shimo.im/docs/Jc6dvgDcthPwhTH6)
+- 改用`mamba`提升下载速度
+- 在成功的案例中，**全程使用科学上网+官方源（没用清华源或广工源进行配置）**
 
 ```bash
 $ source ./build_conda_env.sh
@@ -100,3 +102,5 @@ $ cat ./alias.sh >> ~/.bashrc
 
 1. 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
 2. 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明
+
+3. 2021 5.29 v0.0.3 补充conda环境下载说明
