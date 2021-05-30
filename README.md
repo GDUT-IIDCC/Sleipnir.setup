@@ -31,7 +31,17 @@ $ sudo bash ./build_basic_env.sh
 $ source ./build_conda_env.sh
 ```
 
-**PS：强烈推荐直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[百度云]( https://pan.baidu.com/s/1BIoPp7Ud8a5XQb8rkiXuag)，密码: 4u6p，若使用此方法则可跳过下一步python依赖包的安装**
+**PS：强烈推荐直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[google Drvie]( https://drive.google.com/file/d/1Tm1PZnzVNFF0hpWAaCH0inaAI6W3toqs/view?usp=sharing)**；详细说明可参考[link](https://shimo.im/docs/xXtyQk9CccgtWPtV#anchor-Q6u0)
+
+```bash
+# 下载conda pack(base环境下)
+$ conda install conda-pack
+# dst机上解压缩（tar...），解压缩放到env目录下
+$ ...
+# 修复前缀项(conda-unpack在bin目录下)
+$ conda activate <环境名>  && conda-unpack
+# 在实际测试时，后续可能需要再pip install一下（参考下一步）来补全一些缺漏的pip包或修正一些python包
+```
 
 ### python
 
