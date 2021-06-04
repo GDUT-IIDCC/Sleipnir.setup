@@ -92,7 +92,8 @@ while true; do
                 ros-noetic-jsk-recognition-msgs ros-noetic-visualization-msgs \
                 ros-noetic-lanelet2 \
                 ros-noetic-nav-msgs \
-                ros-noetic-nmea-msgs
+                ros-noetic-nmea-msgs \
+                ros-noetic-tf2-sensor-msgs
             # catkin build的python依赖
             sudo apt install python3-pip
             pip3 install osrf-pycommon
@@ -119,7 +120,8 @@ while true; do
             sudo apt-get install -y \
                 htop \
                 wondershaper \
-                ethstatus
+                ethstatus \
+                cowsay
             break
             ;;
 

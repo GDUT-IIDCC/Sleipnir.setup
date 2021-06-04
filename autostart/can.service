@@ -1,12 +1,12 @@
 [Unit]
-Description=can service
+Description=can service for agilex
 After=network.target
-Requires=network.target
 
 [Service]
 Type=simple
 ExecStart=/bin/sh -c "ip link set can0 up type can bitrate 500000"
-PrivateTmp=true
+Restart=on-failure
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target

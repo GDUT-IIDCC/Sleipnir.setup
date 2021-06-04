@@ -1,6 +1,6 @@
 #! /bin/bash
 sudo bash -c "echo gs_usb >> /etc/modules"
-sudo cp *.service /etc/systemd/system/
+sudo cp can.service /usr/lib/systemd/system/
 sudo cp panel.desktop ~/Desktop
 sudo chmod +x ~/Desktop/panel.desktop
 cp launch_ui.sh ~/
