@@ -54,7 +54,7 @@ done
 
 # [flameshot] from https://github.com/flameshot-org/flameshot
 while true; do
-    read -r -p "2. install flameshot? [Y/n] " input
+    read -r -p "3. install flameshot? [Y/n] " input
     case $input in
         [yY][eE][sS] | [yY] | "")
             # 1. apt装：旧版本，无文字添加功能
@@ -83,3 +83,33 @@ while true; do
             ;;
     esac
 done
+
+# [ntopng] from https://packages.ntop.org/apt-stable/
+while true; do
+    read -r -p "4. install ntop? [Y/n] " input
+    case $input in
+        [yY][eE][sS] | [yY] | "")
+            # 1. 添加仓库
+            apt-get install software-properties-common wget
+            add-apt-repository universe
+            wget https://packages.ntop.org/apt-stable/20.04/all/apt-ntop-stable.deb
+            apt install ./apt-ntop-stable.deb
+
+            # 2. 安装
+            apt-get clean all
+            apt-get update
+            apt-get install pfring-dkms nprobe ntopng n2disk cento
+            break
+            ;;
+
+        [nN][oO] | [nN])
+            break
+            ;;
+
+        *)
+            echo "Invalid input..."
+            ;;
+    esac
+done
+
+

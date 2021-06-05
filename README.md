@@ -103,12 +103,6 @@ $ ./install_software.sh
 $ ./set_ip.sh
 ```
 
-- 添加命令行alias
-
-```bash
-$ cat ./alias.sh >> ~/.bashrc
-```
-
 
 
 # 日志

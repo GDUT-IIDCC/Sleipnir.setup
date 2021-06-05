@@ -1,0 +1,19 @@
+# --ros环境配置-- #
+source /opt/ros/melodic/setup.bash
+
+# --指定可执行文件地址-- #
+export PATH=$PATH:/usr/local/cuda/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+
+# --conda命令行补全-- # 
+CONDA_ROOT=${HOME}/anaconda3
+if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then
+    source $CONDA_ROOT/etc/profile.d/bash_completion.sh
+fi
+
+# --别名配置-- #
+alias h='history' && HISTTIMEFORMAT="%F %T "
+alias free_m='sync && sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"'
+alias kj='killall -s 9 java'
+alias free_c='sudo cpufreq-set -g performance'
+alias speedtest='speedtest --bytes'
