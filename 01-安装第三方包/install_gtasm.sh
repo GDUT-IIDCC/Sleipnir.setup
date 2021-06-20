@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # 安装gtsam
 cd ~ && wget https://github.com/borglab/gtsam/archive/refs/tags/4.0.3.tar.gz -O gtsam.tar.gz
 tar -xzvf gtsam.tar.gz

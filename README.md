@@ -81,7 +81,7 @@ $ sudo cp cuda/include/cudnn*.h /usr/local/cuda/include \
 
 3. 添加环境变量到`~/.bashrc`（根据实际情况调节路径）
 
-```
+```bash
 CUDA_PATH=/usr/local/cuda/bin
 CUDA_LIB_PATH=/usr/local/cuda/lib64
 TENSORRT_LIB_PATH=${HOME}/application/TensorRT-7.2.3.4/lib

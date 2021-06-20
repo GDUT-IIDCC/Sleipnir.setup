@@ -1,5 +1,7 @@
-# 安装gtsam
-cd ~ && wget https://github.com/oxfordcontrol/osqp --recursive
+#!/bin/bash
+
+# 安装osqp
+cd ~ && git clone --depth=1 --recursive https://github.com/osqp/osqp osqp
 cd osqp && mkdir build && cd build
 cmake ..
 make -j$(nproc)
