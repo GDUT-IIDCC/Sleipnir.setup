@@ -2,7 +2,7 @@
 
 - `conda虚拟环境` 适用于二维目标检测、UI等依赖python的包
 
-## 00-搭建基础环境
+## 00.搭建基础环境
 
 ### 改源（optional）
 
@@ -51,7 +51,7 @@ $ conda activate <环境名>  && conda-unpack
 $ source ./build_python_env.sh
 ```
 
-## 01-安装第三方包
+## 01.第三方包安装与配置
 
 ```bash
 # 于定位模块使用
@@ -60,7 +60,7 @@ $ bash ./install_gtsam.sh
 $ bash ./install_osqp.sh
 ```
 
-## 02-[配置深度学习环境](https://shimo.im/docs/drhDv3c6k3HHjHrg)
+## 02.[配置深度学习环境](https://shimo.im/docs/drhDv3c6k3HHjHrg)
 
 1. 对应`TensorRT 7.2.3`, `cudnn8.1.1`, `cuda11.1`
 

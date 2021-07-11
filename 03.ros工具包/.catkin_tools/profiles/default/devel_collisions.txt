@@ -1,0 +1,1 @@
+/home/helios/github/Sleipnir.setup/10-ros工具包/devel/./cmake.lock 2
