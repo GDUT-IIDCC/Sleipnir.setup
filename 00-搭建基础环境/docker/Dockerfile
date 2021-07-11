@@ -1,10 +1,8 @@
 # >>> 基础镜像 >>>
-FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
 
 # >>> 修改源，并安装apt包 >>>
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.gdut.edu.cn/@g /etc/apt/sources.list \
-    && rm -rf /etc/apt/sources.list.d/cuda.list \
-              /etc/apt/sources.list.d/nvidia-ml.list \
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         apt-utils \
@@ -110,20 +108,57 @@ RUN cd ~ && wget https://github.com/borglab/gtsam/archive/refs/tags/4.0.3.tar.gz
     && cd ~ && rm -rf gtsam.tar.gz osqp gtsam-4.0.3
 
 # >>> 安装anaconda >>>
-RUN wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O anaconda.sh \
-    && /bin/bash anaconda.sh -b -p /opt/conda \
-    && export "PATH=/opt/conda/bin:$PATH" \
-    && conda init \
-    && conda config --set auto_activate_base false \
-    && rm anaconda.sh
+# RUN wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O anaconda.sh \
+#     && /bin/bash anaconda.sh -b -p /opt/conda \
+#     && export "PATH=/opt/conda/bin:$PATH" \
+#     && conda init \
+#     && conda config --set auto_activate_base false \
+#     && rm anaconda.sh
 
+RUN pip3 install --no-cache-dir \
+    catkin_pkg \
+    netifaces \
+    rospkg \
+    defusedxml \
+    easydict \
+    empy \
+    fire \
+    gdown \
+    matplotlib \
+    opencv-python \
+    pandas \
+    pygeodesy \
+    tqdm \
+    pybind11 \
+    && apt update \
+    && DEBIAN_FRONTEND=noninteractive apt install -y \
+        python3-pyqt5.qtserialport
+        
 # >>> 解决中文显示乱码问题 >>>
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# >>> 从当前目录导入文件 >>>
-COPY tmp /home/sleipnir/application    
+# >>> 安装TensorRT >>>
+RUN cd /opt \
+    && gdown https://drive.google.com/uc?id=1MJdfsXaqBheYflwz2S56MiyQUcWlATA- \
+    && tar -xzvf TensorRT-7.2.3.4.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.1.tar.gz \
+    && rm TensorRT-7.2.3.4.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.1.tar.gz \
+    && echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/TensorRT-7.2.3.4/lib' >> ~/.bashrc
 
-WORKDIR /home/sleipnir
+# >>> 安装cudnn >>>
+RUN cd /opt \
+    && gdown https://drive.google.com/uc?id=157IFNclCOMb25mOFSqWugG_wCAr1IUTr \
+    && tar -xzvf cudnn-11.3-linux-x64-v8.2.1.32.tgz \
+    && cp cuda/include/cudnn*.h /usr/local/cuda/include \
+    && cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64 \
+    && chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn* \
+    && rm cudnn-11.3-linux-x64-v8.2.1.32.tgz \
+    && rm -rf cuda
+        
+# >>> 从当前目录导入文件 >>>
+# COPY tmp /home/sleipnir/application    
+
+# >>> 设置入口位置 >>>
+# WORKDIR /home/sleipnir
 
 # >>> 入口点函数 >>>
 ENTRYPOINT ["/bin/bash"]    
