@@ -1,0 +1,15 @@
+# ros
+catkin_pkg
+netifaces
+rospkg
+# others
+defusedxml
+easydict
+empy
+fire
+geographiclib
+matplotlib
+opencv-python
+pandas
+pygeodesy
+tqdm
