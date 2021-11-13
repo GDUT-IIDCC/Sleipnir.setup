@@ -1,15 +1,15 @@
 # 环境配置(20.04)
 
-- `conda虚拟环境` 适用于二维目标检测、UI等依赖python的包
+根据经验，最好按照顺序配置；比如先搭建好基础的apt包环境，再安装显卡驱动这些，否则容易出现依赖缺失的问题
 
-## 00.搭建基础环境
+## Basic Setup
 
 ### 改源（optional）
 
 修改下载源（包括apt, conda, pip），当前脚本可选[广工源](https://mirrors.gdut.edu.cn/)和[清华源](https://mirrors.tuna.tsinghua.edu.cn/)
 
 ```bash
-$ bash ./switch_source.sh
+$ bash ./basic_setup/switch_source.sh
 ```
 
 ### 搭建基础系统环境（含ros）
@@ -17,18 +17,18 @@ $ bash ./switch_source.sh
 ros的安装将使用清华源
 
 ```bash
-$ sudo bash ./build_basic_env.sh
+$ bash ./basic_setup/build_basic_env.sh
 ```
 
 ### conda
 
-- 安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正），需[先安装anaconda](https://shimo.im/docs/Jc6dvgDcthPwhTH6)
+- `conda虚拟环境` 适用于二维目标检测、UI等依赖python的包，不需要时则不用安装
 
-- 改用`mamba`提升下载速度
-- 在成功的案例中，**全程使用科学上网+官方源（没用清华源或广工源进行配置）**
+- 安装conda环境（默认环境名为`sleipnir`，环境路径为`{HOME}/anaconda3/envs/sleipnir`，可视实际情况进行修正），需[先安装anaconda](https://shimo.im/docs/Jc6dvgDcthPwhTH6)
+- 改用`mamba`提升下载速度，在成功的案例中，**全程使用科学上网+官方源（没用清华源或广工源进行配置）**
 
 ```bash
-$ source ./build_conda_env.sh
+$ source ./basic_setup/build_conda_env.sh
 ```
 
 **PS：强烈推荐直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[google Drvie]( https://drive.google.com/file/d/1Tm1PZnzVNFF0hpWAaCH0inaAI6W3toqs/view?usp=sharing)**；详细说明可参考[link](https://shimo.im/docs/xXtyQk9CccgtWPtV#anchor-Q6u0)
@@ -45,22 +45,24 @@ $ conda activate <环境名>  && conda-unpack
 
 ### python
 
-安装python依赖包
+安装python依赖包，如果是通过conda环境拷贝的话则可跳过这一步
 
 ``` bash
-$ source ./build_python_env.sh
+$ source ./basic_setup/build_python_env.sh
 ```
 
-## 01.第三方包安装与配置
+## Install Third-Party package
 
 ```bash
 # 于定位模块使用
-$ bash ./install_gtsam.sh
+$ bash ./third-party/install_gtsam.sh
 # 于规划模块使用
-$ bash ./install_osqp.sh
+$ bash ./third-party/install_osqp.sh
+
+$ bash ./third-party/install_ceres.sh
 ```
 
-## 02.[配置深度学习环境](https://shimo.im/docs/drhDv3c6k3HHjHrg)
+## [Deep Learning Env Setup](https://natsu-akatsuki.readthedocs.io/en/latest/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/rst/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html)
 
 1. 对应`TensorRT 7.2.3`, `cudnn8.1.1`, `cuda11.1`
 
@@ -89,18 +91,18 @@ export PATH=${PATH}:${CUDA_PATH}
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CUDA_LIB_PATH}:${TENSORRT_LIB_PATH}
 ```
 
-## 其他（optional）
+## Other（optional）
 
 - 安装常用软件(v2ray, typora...) 
 
 ```bash
-$ ./install_software.sh
+$ ./scripts/install_software.sh
 ```
 
 - 利用脚本配置网络环境(需要根据实际情况，修改脚本中的参数)
 
 ```bash
-$ ./set_ip.sh
+$ ./scripts/set_ip.sh
 ```
 
 # Changelog
@@ -109,7 +111,3 @@ $ ./set_ip.sh
 2. 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明
 3. 2021 5.29 v0.0.3 补充conda环境下载说明
 4. 2021 6.04 v0.0.4 添加日志记录功能
-
-# TodoList
-
-- [ ] 测试gtsam deb包可否使用
