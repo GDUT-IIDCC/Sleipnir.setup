@@ -1,16 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC2268
 
 # The files installed by the script conform to the Filesystem Hierarchy Standard:
 # https://wiki.linuxfoundation.org/lsb/fhs
 
 # The URL of the script project is:
-# https://github.com/v2fly/fhs-install-v2ray
+# https://hubmirror.v2raya.org/v2fly/fhs-install-v2ray
 
 # The URL of the script is:
-# https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+# https://hubmirror.v2raya.org/raw/v2fly/fhs-install-v2ray/master/install-release.sh
 
 # If the script executes incorrectly, go to:
-# https://github.com/v2fly/fhs-install-v2ray/issues
+# https://hubmirror.v2raya.org/v2fly/fhs-install-v2ray/issues
 
 # You can set this variable whatever you want in shell session right before running this script by issuing:
 # export DAT_PATH='/usr/local/share/v2ray'
@@ -33,20 +34,28 @@ curl() {
 systemd_cat_config() {
   if systemd-analyze --help | grep -qw 'cat-config'; then
     systemd-analyze --no-pager cat-config "$@"
+    echo
   else
     echo "${aoi}~~~~~~~~~~~~~~~~"
     cat "$@" "$1".d/*
     echo "${aoi}~~~~~~~~~~~~~~~~"
     echo "${red}warning: ${green}The systemd version on the current operating system is too low."
     echo "${red}warning: ${green}Please consider to upgrade the systemd or the operating system.${reset}"
+    echo
   fi
 }
 
 check_if_running_as_root() {
   # If you want to run as another user, please modify $UID to be owned by this user
   if [[ "$UID" -ne '0' ]]; then
-    echo "error: You must run this script as root!"
-    exit 1
+    echo "WARNING: The user currently executing this script is not root. You may encounter the insufficient privilege error."
+    read -r -p "Are you sure you want to continue? [y/n] " cont_without_been_root
+    if [[ x"${cont_without_been_root:0:1}" = x'y' ]]; then
+      echo "Continuing the installation with current user..."
+    else
+      echo "Not running with root, exiting..."
+      exit 1
+    fi
   fi
 }
 
@@ -64,9 +73,11 @@ identify_the_operating_system_and_architecture() {
         ;;
       'armv6l')
         MACHINE='arm32-v6'
+        grep Features /proc/cpuinfo | grep -qw 'vfp' || MACHINE='arm32-v5'
         ;;
       'armv7' | 'armv7l')
         MACHINE='arm32-v7a'
+        grep Features /proc/cpuinfo | grep -qw 'vfp' || MACHINE='arm32-v5'
         ;;
       'armv8' | 'aarch64')
         MACHINE='arm64-v8a'
@@ -106,7 +117,7 @@ identify_the_operating_system_and_architecture() {
     fi
     # Do not combine this judgment condition with the following judgment condition.
     ## Be aware of Linux distribution like Gentoo, which kernel supports switch between Systemd and OpenRC.
-    ### Refer: https://github.com/v2fly/fhs-install-v2ray/issues/84#issuecomment-688574989
+    ### Refer: https://hubmirror.v2raya.org/v2fly/fhs-install-v2ray/issues/84#issuecomment-688574989
     if [[ -f /.dockerenv ]] || grep -q 'docker\|lxc' /proc/1/cgroup && [[ "$(type -P systemctl)" ]]; then
       true
     elif [[ -d /run/systemd/system ]] || grep -q systemd <(ls -l /sbin/init); then
@@ -224,12 +235,12 @@ get_version() {
   fi
   # Get V2Ray release version number
   TMP_FILE="$(mktemp)"
-  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/v2rayA/dist/tags'; then
+  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://hubmirror.v2raya.org/api/v2fly/v2ray-core/releases/latest'; then
     "rm" "$TMP_FILE"
     echo 'error: Failed to get release list, please check your network.'
     exit 1
   fi
-  RELEASE_LATEST="$(sed 'y/,/\n/' "$TMP_FILE" | grep 'name' | awk -F '"' '{print $4}' | awk 'NR==1{print}')"
+  RELEASE_LATEST="$(sed 'y/,/\n/' "$TMP_FILE" | grep 'tag_name' | awk -F '"' '{print $4}')"
   "rm" "$TMP_FILE"
   RELEASE_VERSION="v${RELEASE_LATEST#v}"
   # Compare V2Ray version numbers
@@ -266,7 +277,7 @@ get_version() {
 }
 
 download_v2ray() {
-  DOWNLOAD_LINK="https://cdn.jsdelivr.net/gh/v2rayA/dist@$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
+  DOWNLOAD_LINK="https://hubmirror.v2raya.org/v2fly/v2ray-core/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
   echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
   if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
     echo 'error: Download failed! Please check your network or try again.'
@@ -361,7 +372,7 @@ install_startup_service_file() {
   mkdir -p '/etc/systemd/system/v2ray.service.d'
   mkdir -p '/etc/systemd/system/v2ray@.service.d/'
   if [[ -n "$JSONS_PATH" ]]; then
-    "rm" '/etc/systemd/system/v2ray.service.d/10-donot_touch_single_conf.conf' \
+    "rm" -f '/etc/systemd/system/v2ray.service.d/10-donot_touch_single_conf.conf' \
       '/etc/systemd/system/v2ray@.service.d/10-donot_touch_single_conf.conf'
     echo "# In case you have a good reason to do so, duplicate this file in the same directory and make your customizes there.
 # Or all changes you made will be lost!  # Refer: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
@@ -371,7 +382,7 @@ ExecStart=/usr/local/bin/v2ray -confdir $JSONS_PATH" |
       tee '/etc/systemd/system/v2ray.service.d/10-donot_touch_multi_conf.conf' > \
         '/etc/systemd/system/v2ray@.service.d/10-donot_touch_multi_conf.conf'
   else
-    "rm" '/etc/systemd/system/v2ray.service.d/10-donot_touch_multi_conf.conf' \
+    "rm" -f '/etc/systemd/system/v2ray.service.d/10-donot_touch_multi_conf.conf' \
       '/etc/systemd/system/v2ray@.service.d/10-donot_touch_multi_conf.conf'
     echo "# In case you have a good reason to do so, duplicate this file in the same directory and make your customizes there.
 # Or all changes you made will be lost!  # Refer: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
@@ -427,7 +438,7 @@ stop_v2ray() {
 
 check_update() {
   if [[ -f '/etc/systemd/system/v2ray.service' ]]; then
-    (get_version)
+    get_version
     local get_ver_exit_code=$?
     if [[ "$get_ver_exit_code" -eq '0' ]]; then
       echo "info: Found the latest release of V2Ray $RELEASE_VERSION . (Current release: $CURRENT_VERSION)"
@@ -532,7 +543,7 @@ main() {
       if [[ "$?" -eq '1' ]]; then
         "rm" -r "$TMP_DIRECTORY"
         echo "removed: $TMP_DIRECTORY"
-        exit 0
+        exit 1
       fi
       install_software 'unzip' 'unzip'
       decompression "$ZIP_FILE"

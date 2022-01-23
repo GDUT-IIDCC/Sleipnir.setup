@@ -15,11 +15,11 @@ then
 fi
 
 # 参数配置
-set_container_name="--name=sleipnir"
-image_name="sleipnir"
+set_container_name="--name=trt7.2.3-ros1"
+image_name="registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir"
 
 # 文件挂载
-set_volumes="--volume=${HOME}/change_ws:/change_ws"
+set_volumes="--volume=${HOME}/change_ws:/change_ws:rw"
 
 # 开启端口
 # pycharmPORT="-p 31111:22" 
@@ -30,7 +30,7 @@ set_network="--network=host"
 # 设备限制
 set_shm="--shm-size=8G"
 
-docker run -it --rm --gpus all \
+docker run -it --gpus all \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --env="XAUTHORITY=$XAUTH" \
