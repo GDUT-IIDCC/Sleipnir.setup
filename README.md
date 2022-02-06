@@ -16,9 +16,11 @@
 
 由于native PC和实际开发时用到的依赖不一定一致，另外，由于部分网络原因(Great Fire Wall & DNS Resolution Pollution)，一些依赖项难以直接获得，因此提供即开即用的docker容器环境
 
-步骤一：安装[docker](https://ambook.readthedocs.io/zh/latest/docker/rst/docker-practice.html#docker)和[nvidia-container2](https://ambook.readthedocs.io/zh/latest/docker/rst/docker-practice.html#id4)
+步骤一：（**虚拟机可跳过该步**）[安装显卡驱动](https://ambook.readthedocs.io/zh/latest/deep-learning/rst/env-building.html#id1)（新手可通过命令行安装，假定native PC已安装gcc, g++等依赖）
 
-步骤二：拉取镜像（镜像大小约为21G，需留够充足的空间）
+步骤二：安装[docker](https://ambook.readthedocs.io/zh/latest/docker/rst/docker-practice.html#docker)和[nvidia-container2](https://ambook.readthedocs.io/zh/latest/docker/rst/docker-practice.html#id4)（虚拟机不用下载nvidia-container2）
+
+步骤三：拉取镜像（镜像大小约为21G，需留够充足的空间）
 
 ```bash
 # passwd: gdutiidccdocker.
@@ -26,24 +28,41 @@ $ docker login --username=黄导nat registry.cn-hangzhou.aliyuncs.com
 $ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:1.0.0
 ```
 
-步骤三：创建容器
+步骤四：创建容器
 
 ```bash
+# 虚拟机需要删除build_container.sh脚本中"--gpus all"这个option
 $ bash ./docker/build_container.sh
 ```
 
-步骤四：拉取工程并在容器中编译
+步骤五：拉取工程并在容器中编译
 
 - 在容器中则git clone到/change_ws下(在native PC中，可以git clone Sleinpir工程到`${HOME}/change_ws`目录下
 
 ```bash
-$ docker exec -it /bin/bash
+# 新建一个终端与容器进行交互
+$ docker exec -it trt7.2.3-ros1 /bin/bash
 $ cd /change_ws
-$ git clone https://github.com/GDUT-IIDCC/Sleipnir
+$ git clone https://github.com/GDUT-IIDCC/Sleipnir --depth=1
 $ cd Sleipnir
+# (optional：导入感知模块和可视化界面) bash bash/import_git_repository.sh
 # 在容器中进行编译
 $ catkin build
 ```
+
+---
+
+**NOTE**
+
+- 虚拟机无法使用显卡
+
+- 电脑重启后需要启动容器
+
+```bash
+$ docker start trt7.2.3-ros1
+```
+
+---
 
 ## native PC development
 
@@ -81,7 +100,7 @@ $ bash ./basic_setup/build_basic_env.sh
 $ source ./basic_setup/build_conda_env.sh
 ```
 
-**（推荐）**方法二****：直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[google Drvie]( https://drive.google.com/file/d/1Tm1PZnzVNFF0hpWAaCH0inaAI6W3toqs/view?usp=sharing)；详细说明可参考[link](https://ambook.readthedocs.io/zh/latest/ubuntu/rst/Package-Download-Virtual-Env.html#id16)
+**（推荐）**方法二：直接解压缩导入文件到`{HOME}/anaconda3/envs/sleipnir`，避免在用conda下载时花费过多的时间。文件：[google Drvie]( https://drive.google.com/file/d/1Tm1PZnzVNFF0hpWAaCH0inaAI6W3toqs/view?usp=sharing)；详细说明可参考[link](https://ambook.readthedocs.io/zh/latest/ubuntu/rst/Package-Download-Virtual-Env.html#id16)
 
 ```bash
 # 下载conda pack(base环境下)
