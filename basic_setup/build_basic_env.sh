@@ -114,7 +114,7 @@ done
 # 安装其他apt包依赖
 while true; do
     read -r -p "4. install apt advanced package?  [Y/n] " input
-    case #!$input in
+    case $input in
         [yY][eE][sS] | [yY] | "")
             sudo apt-get update
             #  依次为top的升级版、监控网速、网络限速
