@@ -4,18 +4,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - cudatoolkit=11.1.1
-  - numpy
-  - pillow
-  - pip
-  - pybind11
-  - pyqt=5.12.3
-  - python=3.8
-  - pytorch=1.8.1
-  - pyyaml
-  - readline
-  - setuptools
+  - cudatoolkit=11.3
+  - python=3.9
   - torchaudio
   - torchvision
-  - tqdm
+  - pytorch=1.11
 prefix: ~/anaconda3/envs/sleipnir

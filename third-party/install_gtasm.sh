@@ -12,7 +12,7 @@
 
 # from https://gtsam.org/get_started/
 # Add PPA
-sudo add-apt-repository ppa:borglab/gtsam-release-4.0
+sudo add-apt-repository ppa:borglab/gtsam-release-4.0 -y
 sudo apt update  # not necessary since Bionic
 # Install:
 sudo apt install -y libgtsam-dev libgtsam-unstable-dev

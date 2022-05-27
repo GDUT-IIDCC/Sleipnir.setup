@@ -11,13 +11,13 @@ sudo apt-get install -y libeigen3-dev
 # SuiteSparse and CXSparse (optional)
 sudo apt-get install -y libsuitesparse-dev
 
-cd ~
-git clone https://ceres-solver.googlesource.com/ceres-solver
-cd ceres-solver
+cd ~ && wget -c http://ceres-solver.org/ceres-solver-2.1.0.tar.gz 
+tar zxf ceres-solver-2.1.0.tar.gz
+cd ceres-solver-2.1.0
 mkdir build
 cd build
 cmake ..
-make -j$(nproc)
+make -j4
 
 # Optionally install Ceres, it can also be exported using CMake which
 # allows Ceres to be used without requiring installation, see the documentation

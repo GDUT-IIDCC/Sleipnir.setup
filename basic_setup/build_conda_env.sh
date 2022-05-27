@@ -16,5 +16,5 @@ if [ ${env_name} != "base" ]; then
   exit 0
 fi
 
-conda install mamba -c conda-forge -y
+conda install -n base --override-channels -c conda-forge mamba=0.23.1
 mamba env create -f cfg/conda.yaml
