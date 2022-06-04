@@ -68,20 +68,8 @@ $ docker start trt7.2.3-ros1
 
 ### Basic Setup
 
-#### 改源（optional）
-
-修改下载源（包括apt, conda, pip），当前脚本可选[广工源](https://mirrors.gdut.edu.cn/)和[清华源](https://mirrors.tuna.tsinghua.edu.cn/)
-
 ```bash
-$ bash ./basic_setup/switch_source.sh
-```
-
-#### 搭建基础系统环境（含ros1）
-
-ros1的安装将使用清华源
-
-```bash
-$ bash ./basic_setup/build_basic_env.sh
+$ bash Setup
 ```
 
 ### conda（optional）
@@ -183,3 +171,4 @@ $ ./scripts/set_ip.sh
 3. 2021 5.29 v0.0.3 补充conda环境下载说明
 4. 2021 6.04 v0.0.4 添加日志记录功能
 4. 2022 1.23 v1.0.0 增加docker容器
+4. 2022 6.04 v2.0.0 使用dialog包实现基于TUI的环境配置
