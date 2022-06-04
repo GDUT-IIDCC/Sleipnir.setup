@@ -41,6 +41,9 @@ Select() {
         2)
             Setup
             ;;
+        3)
+            Advanced
+            ;;
     esac
 }
 
@@ -124,18 +127,39 @@ EOF"
     }; done
 }
 
-MsgBox() {
-    Input1=$1
-    Input2=$2
+Advanced() {
+    while :; do {
 
-    Msg="$Input1\n"
-    Msg="${Msg}$Input2"
+        Input=$(dialog --checklist "Choose third-party installed (↑/↓/space: choose | ←/→/enter: confirm)" 12 75 3 \
+            1 "install basic package" on \
+            2 "install ros" on \
+            3 "install ros package" on 2>&1 > /dev/tty)
 
-    dialog --title "MsgBox" --clear \
-        --backtitle "$BACKTITLE" \
-        --yesno "$Msg" 10 70
+        result=$?
 
-    result=$?
+        if [ $result -eq $CANCEL ] || [ $result -eq $ESC ]; then
+            break
+        elif [ $result -eq $OK ]; then
+            {
+                clear
+                for option in $Input; do
+                    case $option in
+                        1)
+                            InstallBasicPackage
+                            ;;
+                        2)
+                            InstallROS
+                            ;;
+                        3)
+                            InstallROSDependency
+                            ;;
+                        4) ;;
+                    esac
+                done
+            }
+            break
+        fi
+    }; done
 }
 
 InstallBasicPackage() {

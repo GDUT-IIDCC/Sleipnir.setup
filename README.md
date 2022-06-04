@@ -152,19 +152,35 @@ export PATH=${PATH}:${CUDA_PATH}
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CUDA_LIB_PATH}:${TENSORRT_LIB_PATH}
 ```
 
-### Other（optional）
+## ThirdPatry
 
-- 安装常用软件(v2ray, typora...) 
-
-```bash
-$ ./scripts/install_software.sh
-```
-
-- 利用脚本配置网络环境(需要根据实际情况，修改脚本中的参数)
+安装第三方库（该部分等价于`Setup`脚本的Advanced部分的功能）
 
 ```bash
-$ ./scripts/set_ip.sh
+# 导入库安装函数
+$ source InstallThirdParty.sh
+
+# 执行函数 e.g.
+$ InstallV2ray
 ```
+
+### AlgorithmLibrary
+
+| package name | version                        | test time | function        |
+| ------------ | ------------------------------ | --------- | --------------- |
+| ceres        | v2.1 release [github / source] | 2022.5.14 | InstallCeres    |
+| dbow2        | latest [github / source]       | 2022.6.05 | InstallDbow2    |
+| g2o          | latest [github / source]       | 2022.6.05 | InstallG20      |
+| gtsam        | v4.0 release [apt]             | 2022.5.14 | InstallGtsam    |
+| osqp         | latest [github / source]       | 2022.6.05 | InstallOsqp     |
+| pangolin     | latest [github / source]       | 2022.6.05 | InstallPangolin |
+| sophus       | latest [github / source]       | 2022.6.05 | InstallSophus   |
+
+### OtherLibrary
+
+| package name | version       | test time | function     |
+| ------------ | ------------- | --------- | ------------ |
+| v2ray        | release [apt] | 2022.6.5  | InstallV2ray |
 
 ## Changelog
 
@@ -174,3 +190,4 @@ $ ./scripts/set_ip.sh
 4. 2021 6.04 v0.0.4 添加日志记录功能
 4. 2022 1.23 v1.0.0 增加docker容器
 4. 2022 6.04 v2.0.0 使用dialog包实现基于TUI的环境配置
+4. 2022 6.04 v2.1.0 使用函数管理第三方库的安装
