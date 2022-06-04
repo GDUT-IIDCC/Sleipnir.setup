@@ -4,6 +4,13 @@ OK=0
 CANCEL=1
 ESC=255
 
+if [ -f /usr/bin/dialog ]; then
+    dialog --create-rc ~/.dialogrc
+else
+    echo -e "\e[1;31mERROR: You must have dialog installed to use this script[m"
+    exit 1
+fi
+
 Menu() {
     while :; do {
         Selection=$(dialog --no-shadow --title "Menu" \

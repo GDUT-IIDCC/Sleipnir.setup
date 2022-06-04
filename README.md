@@ -69,6 +69,8 @@ $ docker start trt7.2.3-ros1
 ### Basic Setup
 
 ```bash
+# install requirements
+$ sudo apt install dialog
 $ bash Setup
 ```
 
