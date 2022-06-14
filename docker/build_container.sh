@@ -8,27 +8,23 @@ then
     mkdir ${HOME}/tmp
 fi
 
-if [ ! -d ${HOME}/change_ws} ]
-then
-    mkdir ${HOME}/change_ws
-fi
-
 XAUTH=${HOME}/tmp/.docker.xauth
 touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | sudo xauth -f $XAUTH nmerge -
 
 # 参数配置
-set_container_name="--name=trt7.2.3-ros1"
-image_name="registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:1.0.0"
+set_container_name="--name=sleipnir"
+image_name="sleipnir:latest"
 
 # 文件挂载
-set_volumes="--volume=${HOME}/change_ws:/change_ws:rw"
+set_volumes="--volume=${HOME}/Sleipnir:/Sleipnir:rw"
 
 # 开启端口
-# pycharmPORT="-p 31111:22" 
-# jupyterPORT="-p 8888:8888" 
-# tensorboardPORT="-p 6006:6006" 
-set_network="--network=host"
+vncPORT="-p 15901:5901" 
+pycharmPORT="-p 31111:22" 
+jupyterPORT="-p 8888:8888" 
+tensorboardPORT="-p 6006:6006" 
+
 
 # 设备限制
 set_shm="--shm-size=8G"
