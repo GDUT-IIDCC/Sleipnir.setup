@@ -7,7 +7,7 @@ ESC=255
 if [ -f /usr/bin/dialog ]; then
     dialog --create-rc ~/.dialogrc
 else
-    echo -e "\e[1;31mERROR: You must have dialog installed to use this script[m"
+    echo -e "\e[1;31mERROR: You must install dialog first to use this script\033[0m"
     exit 1
 fi
 
@@ -50,10 +50,11 @@ Select() {
 Setup() {
     while :; do {
 
-        Input=$(dialog --checklist "Choose setup options (↑/↓/space: choose | ←/→/enter: confirm)" 12 75 3 \
-            1 "install basic package" on \
-            2 "install ros" on \
-            3 "install ros package" on 2>&1 > /dev/tty)
+        Input=$(dialog --checklist "Choose setup options (↑/↓/space: choose | ←/→/enter: confirm)" 12 75 4 \
+            1 "install basic package" off \
+            2 "install ros" off \
+            3 "install ros package" off \
+            4 "install pip package" off 2>&1 > /dev/tty)
 
         result=$?
 
@@ -73,7 +74,10 @@ Setup() {
                         3)
                             InstallROSDependency
                             ;;
-                        4) ;;
+                        4)
+                            InstallPIPPackage
+                            ;;
+                        5)  ;;
                     esac
                 done
             }
@@ -228,7 +232,32 @@ InstallROSDependency() {
         ros-noetic-tf2-sensor-msgs
 EOF
     sudo apt install -y python3-pip
-    pip3 install osrf-pycommon
+    pip install osrf-pycommon
+}
+
+InstallPIPPackage() {
+    cat > /tmp/requirements.txt << EOF
+catkin_pkg
+defusedxml
+easydict
+empy
+fire
+gdown
+geographiclib
+matplotlib
+netifaces
+numpy
+opencv-python
+pandas
+pybind11[global]
+pygeodesy
+rospkg
+torch
+torchaudio
+torchvision
+tqdm
+EOF
+    pip install -r /tmp/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu113
 }
 
 Exit() {
