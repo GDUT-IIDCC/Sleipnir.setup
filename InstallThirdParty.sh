@@ -2,6 +2,7 @@
 
 # set -x
 
+# >>> algorithm library >>>
 InstallCeres() {
     # install requirement
     sudo apt install -y cmake
@@ -96,6 +97,26 @@ InstallPangolin() {
     InstallPackege ${package_path}
 }
 
+InstallPackege() {
+    if [ ! -d build ]; then
+        mkdir build
+    fi
+
+    cd build
+    cmake ..
+    make -j4
+    sudo make install
+}
+
+# >>> effective tool >>>
+InstallHstr() {
+    sudo add-apt-repository ppa:ultradvorka/ppa
+    sudo apt update &&
+    sudo apt install hstr
+    hstr --show-configuration >> ~/.bashrc
+    bash . ~/.bashrc
+}
+
 InstallV2ray() {
     curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
     sudo systemctl disable v2ray --now
@@ -107,15 +128,4 @@ InstallV2ray() {
     sudo apt install v2raya -y
     sudo systemctl start v2raya.service
     sudo systemctl enable v2raya.service
-}
-
-InstallPackege() {
-    if [ ! -d build ]; then
-        mkdir build
-    fi
-
-    cd build
-    cmake ..
-    make -j4
-    sudo make install
 }
