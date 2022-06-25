@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Terminal=true
-Type=Application
-Name=panel
-Exec=bash -c -i "source ~/launch_ui.sh"
-Icon=/usr/share/icons/hicolor/512x512/apps/spongebob.png
-Name[en_US]=panel.desktop

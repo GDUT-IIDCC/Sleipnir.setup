@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Terminal=True
+Type=Application
+Exec=Sleipnir
+Icon=/usr/share/icons/Sleipnir.svg
+Name[en_US]=Sleipnir
