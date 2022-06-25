@@ -1,6 +1,0 @@
-#!/bin/bash
-
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
-
-dbus-launch startplasma-x11

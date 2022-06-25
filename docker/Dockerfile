@@ -15,6 +15,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list 
         ca-certificates \
         cmake \
         curl \
+        gcc-9 g++-9 gcc-10 g++-10 \
         git \
         keyboard-configuration \
         libx11-dev \
@@ -22,12 +23,11 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list 
         lsb-core \
         mlocate \
         nano \
-        net-tools \        
+        net-tools \
         openssh-server \
         software-properties-common \
         vim \
         wget \
-        gcc-9 g++-9 gcc-10 g++-10 \
     && rm -rf /var/lib/apt/lists/*
 
 # >>> 安装ROS >>>
@@ -54,9 +54,9 @@ RUN apt update \
         libglfw3-dev \
         libglm-dev \
         libgtest-dev \
+        libpcap-dev \
         libpugixml-dev \
         python3-catkin-tools \
-        libpcap-dev \
         ros-noetic-angles \
         ros-noetic-camera-info-manager \
         ros-noetic-ddynamic-reconfigure \
@@ -76,25 +76,32 @@ ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 # >>> 安装pip依赖 >>>
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cu113 \
     catkin_pkg \
-    geographiclib \
-    netifaces \
-    rospkg \
     defusedxml \
     easydict \
     empy \
     fire \
     gdown \
+    geographiclib \
     matplotlib \
+    netifaces \
+    numpy \
     opencv-python \
     pandas \
-    pygeodesy \
-    tqdm \
     pybind11[global] \
+    pygeodesy \
+    rospkg \
+    torch \
+    torchaudio \
+    torchvision \
+    tqdm \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         python3-pyqt5.qtserialport
+
+# >>> 解决中文显示乱码问题 >>>
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # >>> 安装和配置vnc server >>>
 RUN apt update \
@@ -104,47 +111,20 @@ RUN apt update \
         tigervnc-xorg-extension \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p $HOME/.vnc \
-    && echo "admin" | vncpasswd -f >> $HOME/.vnc/passwd && chmod 600 $HOME/.vnc/passwd
-    
-COPY tigervnc@.service /etc/systemd/system/tigervnc@.service
-RUN systemctl enable tigervnc@:1
-COPY xstartup /root/.vnc/xstartup
+    && echo "#!/bin/bash" >> $HOME/.vnc/xstartup \
+    && echo "startlxde &" >> $HOME/.vnc/xstartup \
+    && echo "admin" | vncpasswd -f >> $HOME/.vnc/passwd && chmod 600 $HOME/.vnc/passwd \
+    && echo "geometry=1920x1080" >> $HOME/.vnc/config
 
-# >>> 安装gnome display manager >>>
+# >>> 安装lxde display manager >>>
 RUN apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y --fix-missing \
-        kubuntu-desktop \
+        dolphin \
+        konsole \
+        lxde \
     && rm -rf /var/lib/apt/lists/*
 
-# >>> 解决中文显示乱码问题 >>>
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-
-# >>> 安装gtsam,osqp,ceres >>>
-RUN  cd /tmp \
-    && sudo add-apt-repository ppa:borglab/gtsam-release-4.0 -y \
-    && sudo apt update \
-    && sudo apt install -y libgtsam-dev libgtsam-unstable-dev \
-    && DEBIAN_FRONTEND=noninteractive apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev \
-    && wget -c http://ceres-solver.org/ceres-solver-2.1.0.tar.gz -O /tmp/ceres-solver-2.1.0.tar.gz \
-    && cd /tmp \
-    && tar -xzvf ceres-solver-2.1.0.tar.gz \
-    && cd /tmp/ceres-solver-2.1.0 \
-    && mkdir build && cd build && cmake .. \
-    && make -j4 \
-    && make install \
-    && cd /tmp/ \
-    && git clone --depth=1 --recursive https://github.com/osqp/osqp osqp \
-    && cd osqp && mkdir build && cd build \
-    && cmake .. \
-    && make -j4 \
-    && make install \
-    && rm -rf /tmp/*
-
-# >>> 安装pytorch >>>
-# RUN pip3 install --no-cache-dir pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
-
 # >>> 入口点函数 >>>
-ENTRYPOINT ["/usr/sbin/init"]
+ENTRYPOINT ["/bin/bash"]
 
 

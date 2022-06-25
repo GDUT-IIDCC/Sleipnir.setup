@@ -12,7 +12,7 @@ services:
           devices:
             - capabilities: [gpu]
     ports:
-      - "15901:5901" # vncserverPORT
+      - "15900:5900" # vncserverPORT
       - "18888:8888" # jupyterPORT
       - "31111:22"   # pycharmPORT
       - "16006:6006"  # tensorboardPORT
@@ -24,4 +24,3 @@ services:
     shm_size: 8G
     volumes: 
       - ${HOME}/Sleipnir:/Sleipnir:rw
-    privileged: true
