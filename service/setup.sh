@@ -5,8 +5,8 @@ sudo cp CAN.service /usr/lib/systemd/system/
 cp Sleipnir.desktop ~/Desktop
 
 chmod +x ~/Desktop/Sleipnir.desktop
-chmod +x Sleipnir.sh
-sudo cp Sleipnir.sh /usr/local/bin
+chmod +x Sleipnir
+sudo cp Sleipnir /usr/local/bin
 sudo cp Sleipnir.svg /usr/share/icons/Sleipnir.svg
 
 sudo systemctl daemon-reload
