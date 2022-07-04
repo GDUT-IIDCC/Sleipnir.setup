@@ -76,6 +76,13 @@ $ InstallV2ray
 | v2ray        | release [apt]                  | 2022.6.5  | InstallV2ray    |
 | hstr         | release [apt]                  |           | InstallHstr     |
 
+## IP配置
+
+- `192.168.1.102`：本机电脑
+- `192.168.1.200`：速腾聚创激光雷达
+- `192.168.1.233`：mindvision千兆相机
+- `192.168.1.50`：livox固态激光雷达
+
 ## 迭代说明
 
 1. 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
@@ -90,3 +97,5 @@ $ InstallV2ray
 ## Q&A
 
 - [tee日志输出到终端不及时](https://stackoverflow.com/questions/41026503/tee-output-not-appearing-until-cmd-finishes)
+
+- [Finding GeographicLib in CMake](https://stackoverflow.com/questions/48169653/finding-geographiclib-in-cmake-on-debian)

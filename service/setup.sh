@@ -10,4 +10,4 @@ sudo cp Sleipnir /usr/local/bin
 sudo cp Sleipnir.svg /usr/share/icons/Sleipnir.svg
 
 sudo systemctl daemon-reload
-sudo systemctl enable CAN.service 
+sudo systemctl enable CAN.service

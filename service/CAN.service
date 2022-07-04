@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c "ip link set can0 up type can bitrate 1000000"
+ExecStart=/bin/bash -c "ip link set can0 up type can bitrate 500000"
 
 Restart=on-failure
 RestartSec=1
