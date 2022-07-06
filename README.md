@@ -85,17 +85,28 @@ $ InstallV2ray
 
 ## 迭代说明
 
-1. 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
-2. 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明
-3. 2021 5.29 v0.0.3 补充conda环境下载说明
-4. 2021 6.04 v0.0.4 添加日志记录功能
-4. 2022 1.23 v1.0.0 增加docker容器
-4. 2022 6.04 v2.0.0 使用dialog包实现基于TUI的环境配置
-4. 2022 6.04 v2.1.0 使用函数管理第三方库的安装
-4. 2022 6.05 v3.0.0 移除conda环境
+- 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
+
+- 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明
+
+- 2021 5.29 v0.0.3 补充conda环境下载说明
+
+- 2021 6.04 v0.0.4 添加日志记录功能
+
+- 2022 1.23 v1.0.0 增加docker容器
+
+- 2022 6.04 v2.0.0 使用dialog包实现基于TUI的环境配置
+
+- 2022 6.04 v2.1.0 使用函数管理第三方库的安装
+
+- 2022 6.05 v3.0.0 移除conda环境
 
 ## Q&A
 
 - [tee日志输出到终端不及时](https://stackoverflow.com/questions/41026503/tee-output-not-appearing-until-cmd-finishes)
-
 - [Finding GeographicLib in CMake](https://stackoverflow.com/questions/48169653/finding-geographiclib-in-cmake-on-debian)
+
+```bash
+# e.g
+$ sudo ln -s /usr/share/cmake/geographiclib/FindGeographicLib.cmake /usr/share/cmake-3.10/Modules/
+```

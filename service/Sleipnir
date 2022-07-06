@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_dir="${HOME}/log.Sleipnir"
+log_dir="${HOME}/Sleipnir.log"
 time_prefix=$(date '+%m-%d-%H-%M')
 file_dir="${log_dir}/${time_prefix}-debug.log"
 
