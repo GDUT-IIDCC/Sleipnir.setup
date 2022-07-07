@@ -19,7 +19,6 @@ Menu() {
             --menu "(↑/↓/space: choose | ←/→/enter: confirm)" 12 75 3 \
             1 "Change mirror" \
             2 "Basic setup" \
-            3 "Advanced" \
             2>&1 > /dev/tty)
 
         result=$?
@@ -40,9 +39,6 @@ Select() {
             ;;
         2)
             Setup
-            ;;
-        3)
-            Advanced
             ;;
     esac
 }
@@ -79,6 +75,7 @@ Setup() {
                             ;;
                         5)  ;;
                     esac
+                    Prompt
                 done
             }
             break
@@ -126,6 +123,7 @@ deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-updates main restricted univer
 deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
 deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-security main restricted universe multiverse
 EOF"
+            Prompt
             break
         fi
     }; done
@@ -176,19 +174,23 @@ InstallBasicPackage() {
         cmake
         curl
         expect
+        gcc-9 g++-9 gcc-10 g++-10
+        gdb
         git
         keyboard-configuration
         libx11-dev
+        lldb
         locales
         lsb-core
+        mlocate
         nano
         net-tools
         openssh-server
+        python-is-python3
+        python3-pip
         software-properties-common
         vim
         wget
-        gcc-9 g++-9
-        gcc-10 g++-10
 EOF
 }
 
@@ -246,7 +248,7 @@ gdown
 geographiclib
 matplotlib
 netifaces
-numpy
+numpy==1.22.4
 opencv-python
 pandas
 pybind11[global]
@@ -263,6 +265,10 @@ EOF
 Exit() {
     clear
     exit
+}
+
+Prompt() {
+    echo -e "\e[32mHit any key to continue\e[0m" && read -r
 }
 
 Menu

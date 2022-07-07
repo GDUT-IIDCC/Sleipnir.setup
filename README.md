@@ -14,6 +14,9 @@
 
 ### 基础配置
 
+- 默认安装为：`2 Basic Setup `，然后选择选项`1，2，3`
+- 当且仅当使用UI和感知模块的选择选项4（即安装python包）
+
 ```bash
 # install requirements
 $ sudo apt install dialog
@@ -34,35 +37,7 @@ $ InstallOsqp
 $ InstallCeres
 ```
 
-### 配置快捷方式和使能底盘模块
-
-```bash
-$ sudo apt install expect
-$ bash service/setup.sh
-```
-
-### [深度学习依赖安装](https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html)
-
-**不编译感知模块的可跳过该部分的内容**
-
-|    依赖包     | 版本号 |
-| :-----------: | :----: |
-| nvidia-driver |        |
-|   TensorRT    | 7.2.3  |
-|     cudnn     | 8.1.1  |
-|     cuda      |  11.1  |
-
-#### 安装其他第三方库
-
-```bash
-# 导入库安装函数
-$ source InstallThirdParty.sh
-
-# 执行函数 e.g.
-$ InstallV2ray
-```
-
-#### 支持的三方库
+- 支持的其他三方库
 
 | package name | version                        | test time | function        |
 | ------------ | ------------------------------ | --------- | --------------- |
@@ -76,6 +51,26 @@ $ InstallV2ray
 | v2ray        | release [apt]                  | 2022.6.5  | InstallV2ray    |
 | hstr         | release [apt]                  |           | InstallHstr     |
 
+### 配置快捷方式和使能底盘模块
+
+- 仅适用于maintainer，不熟悉该部分的敬请跳过
+
+```bash
+$ sudo apt install expect
+$ bash service/setup.sh
+```
+
+### [深度学习依赖安装](https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html)
+
+- 不编译感知模块的可跳过该部分的内容
+
+|    依赖包     | 版本号 |
+| :-----------: | :----: |
+| nvidia-driver |        |
+|   TensorRT    | 7.2.3  |
+|     cudnn     | 8.1.1  |
+|     cuda      |  11.1  |
+
 ## IP配置
 
 - `192.168.1.102`：本机电脑
@@ -86,20 +81,14 @@ $ InstallV2ray
 ## 迭代说明
 
 - 2021.5.21 v0.0.1 应kuzen要求增设`默认选项`，只需按回车键即能触发默认选项
-
 - 2021 5.29 v0.0.2 添加感知模块gpu依赖的配置说明
-
 - 2021 5.29 v0.0.3 补充conda环境下载说明
-
 - 2021 6.04 v0.0.4 添加日志记录功能
-
 - 2022 1.23 v1.0.0 增加docker容器
-
 - 2022 6.04 v2.0.0 使用dialog包实现基于TUI的环境配置
-
 - 2022 6.04 v2.1.0 使用函数管理第三方库的安装
-
 - 2022 6.05 v3.0.0 移除conda环境
+- 2022 7.08 v3.0.1 完善说明文档；完善安装脚本
 
 ## Q&A
 
