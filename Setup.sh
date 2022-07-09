@@ -166,7 +166,7 @@ Advanced() {
 
 InstallBasicPackage() {
     sudo apt update
-    sudo apt install -y << EOF
+    pkg_list=(
         apt-utils
         bash-completion
         build-essential
@@ -191,7 +191,8 @@ InstallBasicPackage() {
         software-properties-common
         vim
         wget
-EOF
+    )
+    sudo apt install -y "${pkg_list[@]}"
 }
 
 InstallROS() {
@@ -200,18 +201,19 @@ InstallROS() {
     sudo apt update
     sudo apt install -y ros-noetic-desktop-full
     echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-    sudo apt install -y << EOF
+    pkg_list=(
         build-essential
         python3-rosdep
         python3-rosinstall
         python3-rosinstall-generator
         python3-wstool
-EOF
+    )
+    sudo apt install -y "${pkg_list[@]}"
 }
 
 InstallROSDependency() {
     sudo apt update
-    sudo apt install -y << EOF
+    pkg_list=(
         libboost-all-dev
         libboost-python-dev
         libeigen3-dev
@@ -232,7 +234,8 @@ InstallROSDependency() {
         ros-noetic-nav-msgs
         ros-noetic-nmea-msgs
         ros-noetic-tf2-sensor-msgs
-EOF
+    )
+    sudo apt install -y "${pkg_list[@]}"
     sudo apt install -y python3-pip
     pip install osrf-pycommon
 }
