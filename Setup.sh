@@ -118,10 +118,10 @@ ChangeMirror() {
                     ;;
             esac
             sudo bash -c "cat << EOF > /etc/apt/sources.list
-deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal main restricted universe multiverse
-deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
-deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
-deb http://mirrors.${mirror}.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.${mirror}.edu.cn/ubuntu/ $(lsb_release -sc) main restricted universe multiverse
+deb http://mirrors.${mirror}.edu.cn/ubuntu/ $(lsb_release -sc)-updates main restricted universe multiverse
+deb http://mirrors.${mirror}.edu.cn/ubuntu/ $(lsb_release -sc)-backports main restricted universe multiverse
+deb http://mirrors.${mirror}.edu.cn/ubuntu/ $(lsb_release -sc)-security main restricted universe multiverse
 EOF"
             Prompt
             break
