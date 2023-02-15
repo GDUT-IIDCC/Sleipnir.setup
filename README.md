@@ -25,7 +25,7 @@ $ bash Setup.sh
 
 ![image-20220624220346192](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624220346192.png)
 
-### 安装第三方包
+### 安装三方工具（库，程序）
 
 ```bash
 $ source InstallThirdParty.sh
@@ -39,17 +39,26 @@ $ InstallCeres
 
 - 支持的其他三方库
 
-| package name | version                        | test time | function        |
-| ------------ | ------------------------------ | --------- | --------------- |
-| ceres        | v2.1 release [github / source] | 2022.5.14 | InstallCeres    |
-| dbow2        | latest [github / source]       | 2022.6.05 | InstallDbow2    |
-| g2o          | latest [github / source]       | 2022.6.05 | InstallG20      |
-| gtsam        | v4.0 release [apt]             | 2022.5.14 | InstallGtsam    |
-| osqp         | latest [github / source]       | 2022.6.05 | InstallOsqp     |
-| pangolin     | latest [github / source]       | 2022.6.05 | InstallPangolin |
-| sophus       | latest [github / source]       | 2022.6.05 | InstallSophus   |
-| v2ray        | release [apt]                  | 2022.6.5  | InstallV2ray    |
-| hstr         | release [apt]                  |           | InstallHstr     |
+| package name |                           version                            | test time |    function     |
+| :----------: | :----------------------------------------------------------: | :-------: | :-------------: |
+|    ceres     |                v2.1 release [github / source]                | 2022.5.14 |  InstallCeres   |
+|    dbow2     |                   latest [github / source]                   | 2022.6.05 |  InstallDbow2   |
+|     g2o      |                   latest [github / source]                   | 2022.6.05 |   InstallG20    |
+|    gtsam     |                      v4.0 release [apt]                      | 2022.5.14 |  InstallGtsam   |
+|     osqp     |                   latest [github / source]                   | 2022.6.05 |   InstallOsqp   |
+|   pangolin   |                   latest [github / source]                   | 2022.6.05 | InstallPangolin |
+|    sophus    | latest [[github](https://github.com/strasdat/Sophus) / source] | 2022.6.05 |  InstallSophus  |
+|    v2ray     |                        release [apt]                         | 2023.2.15 |  InstallV2ray   |
+|     hstr     |                        release [apt]                         |           |   InstallHstr   |
+
+- 支持的程序
+
+| applicaton name |                                version                                | test time |        function        |
+|:---------------:|:---------------------------------------------------------------------:| :-------: | :--------------------: |
+|     Chrome      |                             release [apt]                             | 2023.2.15 |     InstallChrome      |
+|     Vscode      |                             release [apt]                             | 2023.2.15 |     InstallVscode      |
+| JetbrainToolbox |                             wget [1.27.2]                             | 2023.2.15 | InstallJetbrainToolbox |
+| [Sunlogin](https://sunlogin.oray.com/download/linux?type=personal) | wget [11.0] | 2023.2.15 | InstallSunlogin |
 
 ### 配置快捷方式和使能底盘模块
 
@@ -89,6 +98,11 @@ $ bash service/setup.sh
 - 2022 6.04 v2.1.0 使用函数管理第三方库的安装
 - 2022 6.05 v3.0.0 移除conda环境
 - 2022 7.08 v3.0.1 完善说明文档；完善安装脚本
+- 2023 2.15 v4.0.0 占坑：补充各种应用程序的安装脚本
+
+### TODO
+
+- [ ] 迁移Migration仓库
 
 ## Q&A
 

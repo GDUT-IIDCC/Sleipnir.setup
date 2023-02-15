@@ -275,3 +275,9 @@ Prompt() {
 }
 
 Menu
+
+
+umount ${mount_point}/sys \
+&& umount ${mount_point}/proc \
+&& umount ${mount_point}/dev \
+&& umount ${mount_point}/
